@@ -1,1 +1,72 @@
-[{"ID": "1", "Name": "samosa", "Price": 20.0, "Availability": "yes"}, {"ID": "2", "Name": "vadapav", "Price": 20.0, "Availability": "yes"}]
+[
+    {
+        "ID": "1",
+        "Name": "Samosa",
+        "Price": 20.0,
+        "Availability": "yes",
+        "Quantity": 4
+    },
+    {
+        "ID": "2",
+        "Name": "Vada Pav",
+        "Price": 20.0,
+        "Availability": "yes",
+        "Quantity": 15
+    },
+    {
+        "ID": "3",
+        "Name": "Pakora",
+        "Price": 10.0,
+        "Availability": "yes",
+        "Quantity": 20
+    },
+    {
+        "ID": "4",
+        "Name": "Bhel Puri",
+        "Price": 25.0,
+        "Availability": "yes",
+        "Quantity": 12
+    },
+    {
+        "ID": "5",
+        "Name": "Paneer Tikka",
+        "Price": 30.0,
+        "Availability": "no",
+        "Quantity": 0
+    },
+    {
+        "ID": "7",
+        "Name": "Samosa Chat",
+        "Price": 25.0,
+        "Availability": "yes",
+        "Quantity": 10
+    },
+    {
+        "ID": "8",
+        "Name": "Aloo Tikki",
+        "Price": 15.0,
+        "Availability": "yes",
+        "Quantity": 25
+    },
+    {
+        "ID": "9",
+        "Name": "Dahi Puri",
+        "Price": 20.0,
+        "Availability": "yes",
+        "Quantity": 14
+    },
+    {
+        "ID": "10",
+        "Name": "Chole Bhature",
+        "Price": 35.0,
+        "Availability": "yes",
+        "Quantity": 20
+    },
+    {
+        "ID": "6",
+        "Name": "panner pakoda",
+        "Price": 200.0,
+        "Availability": "yes",
+        "Quantity": 10
+    }
+]

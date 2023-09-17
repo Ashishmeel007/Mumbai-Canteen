@@ -39,12 +39,13 @@ def add_snack():
     snack_name = input("Enter Snack Name: ")
     price = float(input("Enter Price: "))
     availability = input("Is the snack available? (yes/no): ").lower()
-    
+    quantity = int(input("Enter quantity: "))
     snack = {
         "ID": snack_id,
         "Name": snack_name,
         "Price": price,
-        "Availability": availability
+        "Availability": availability,
+        "Quantity":quantity
     }
     
     inventory.append(snack)
@@ -79,23 +80,43 @@ def record_sale():
     snack_id = input("Enter Snack ID sold: ")
     for snack in inventory:
         if snack["ID"] == snack_id:
-            if snack["Availability"] == "yes":
-                snack["Availability"] = "no"
-                print(f"{snack['Name']} has been sold.")
-                save_inventory()
-                # Record the sale in sales_records
-                sale_record = {
-                    "ID": snack_id,
-                    "Name": snack["Name"],
-                    "Price": snack["Price"]
-                }
-                sales_records.append(sale_record)
-                save_sales_records()
-                return
+            if snack["Availability"] == "yes" and snack["Quantity"] > 0:
+                try:
+                    quantity_sold = int(input(f"How many {snack['Name']}s were sold? "))
+                    if quantity_sold > 0 and quantity_sold <= snack["Quantity"]:
+                        snack["Quantity"] -= quantity_sold
+                        print(f"{quantity_sold} {snack['Name']}s have been sold.")
+                        snack["Availability"] = "yes" if snack["Quantity"] > 0 else "no"
+                        save_inventory()
+
+                        # Check if the snack has been sold before
+                        for sale in sales_records:
+                            if sale["ID"] == snack_id and sale["Name"] == snack["Name"]:
+                                sale["Quantity"] += quantity_sold
+                                sale["Price"] += snack["Price"] * quantity_sold
+                                save_sales_records()
+                                return
+
+                        # If the snack hasn't been sold before, create a new sale record
+                        sale_record = {
+                            "ID": snack_id,
+                            "Name": snack["Name"],
+                            "Price": snack["Price"] * quantity_sold,
+                            "Quantity": quantity_sold
+                        }
+                        sales_records.append(sale_record)
+                        save_sales_records()
+                        return
+                    else:
+                        print("Invalid quantity. Please enter a valid quantity.")
+                except ValueError:
+                    print("Invalid input. Please enter a valid quantity.")
             else:
                 print(f"{snack['Name']} is not available.")
                 return
     print("Snack not found in inventory.")
+
+
 
 # Function to display all items in a tabular format
 def get_all_items():
@@ -103,9 +124,9 @@ def get_all_items():
         print("Inventory is empty.")
     else:
         table = PrettyTable()
-        table.field_names = ["ID", "Name", "Availability", "Price"]
+        table.field_names = ["ID", "Name", "Availability", "Price","Quantity"]
         for snack in inventory:
-            table.add_row([snack["ID"], snack["Name"], snack["Availability"], snack["Price"]])
+            table.add_row([snack["ID"], snack["Name"], snack["Availability"], snack["Price"], snack["Quantity"]])
         print(table)
 
 # Function to display all sales records in a tabular format
@@ -120,6 +141,7 @@ def get_all_sales_records():
         print(table)
 
 # Main loop for user interaction
+
 while True:
     print("\nMumbai Munchies Canteen")
     print("1. Add Snack")
